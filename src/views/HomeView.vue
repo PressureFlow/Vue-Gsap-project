@@ -60,46 +60,68 @@ onUnmounted(() => {
 			</div>
 		</section>
 		<section class="products-section" id="products">
-			<div class="">
-				<div class="home-deck-cards delayed" id="deck-cards">
-					<div class="fader card">
-						<div class="card-image">
-							<img src="../../public/1.png" alt="" />
-						</div>
+			<div class="home-deck-cards" id="deck-cards">
+				<div class="fader card">
+					<div class="card-image">
+						<img src="../../public/1.png" alt="" />
+					</div>
+					<div class="card-content">
 						<div class="card-info">
 							<h2 class="">Название:</h2>
 							<p>Кол-во товара</p>
 						</div>
 					</div>
+					<div class="card-price">
+						<h2>49$</h2>
+						<div class="card-icon">+</div>
+					</div>
+				</div>
 
-					<div class="fader card card2">
-						<div class="card-image">
-							<img src="../../public/2.png" alt="" />
-						</div>
+				<div class="fader card">
+					<div class="card-image">
+						<img src="../../public/2.png" alt="" />
+					</div>
+					<div class="card-content">
 						<div class="card-info">
 							<h2 class="">Название:</h2>
 							<p>Кол-во товара</p>
 						</div>
 					</div>
+					<div class="card-price">
+						<h2>49$</h2>
+						<div class="card-icon">+</div>
+					</div>
+				</div>
 
-					<div class="fader card">
-						<div class="card-image">
-							<img src="../../public/3.png" alt="" />
-						</div>
+				<div class="fader card">
+					<div class="card-image">
+						<img src="../../public/3.png" alt="" />
+					</div>
+					<div class="card-content">
 						<div class="card-info">
 							<h2 class="">Название:</h2>
 							<p>Кол-во товара</p>
 						</div>
 					</div>
+					<div class="card-price">
+						<h2>49$</h2>
+						<div class="card-icon">+</div>
+					</div>
+				</div>
 
-					<div class="fader card">
-						<div class="card-image">
-							<img src="../../public/4.png" alt="" />
-						</div>
+				<div class="fader card">
+					<div class="card-image">
+						<img src="../../public/4.png" alt="" />
+					</div>
+					<div class="card-content">
 						<div class="card-info">
 							<h2 class="">Название:</h2>
 							<p>Кол-во товара</p>
 						</div>
+					</div>
+					<div class="card-price">
+						<h2>49$</h2>
+						<div class="card-icon">+</div>
 					</div>
 				</div>
 			</div>
@@ -163,20 +185,81 @@ h1 {
 	background-color: #ff9100;
 	color: #ffffff;
 }
+.products-section {
+	height: 100vh;
+	background-color: #e8e8e8;
+	padding: 30px;
+}
 .home-deck-cards {
 	display: flex;
-	justify-content: space-between;
-	margin: 20px;
-	height: 100vh;
-	gap: 1.5em;
+	justify-content: space-around;
+	gap: 1em;
 }
 .card {
+	--card-bg: #ffffff;
+	--card-accent: #7c3aed;
+	--card-text: #1e293b;
+	--card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+
+	background: var(--card-bg);
 	border-radius: 20px;
-	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.5);
-	height: 600px;
+	box-shadow: var(--card-shadow);
+	border: 1px solid rgba(255, 255, 255, 0.2);
 	padding: 20px;
-	display: flex;
-	flex-direction: column;
 	opacity: 0;
+	width: 22%;
+	transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-price {
+	position: relative;
+	margin-top: 20px;
+}
+.card-price h2 {
+	font-size: 1.5em;
+	font-weight: 500;
+}
+.card:hover .card-price h2,
+.card:hover .card-info h2 {
+	color: var(--color-amber-500);
+	transition: 0.3s ease;
+}
+.card:hover .card-info p {
+	color: var(--color-gray-950);
+	transition: 0.3s ease;
+}
+.card-icon {
+	position: absolute;
+	width: 50px;
+	height: 50px;
+	background-color: var(--color-orange-400);
+	border-radius: 50%;
+	right: 0;
+	bottom: 0;
+	color: #eee;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: larger;
+	transform: scale(0.9);
+	transition: all 0.3s ease;
+}
+.card-info h2 {
+	font-size: 2em;
+}
+.card-info p {
+	font-size: 1em;
+	color: var(--color-gray-600);
+}
+.card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+		0 10px 10px -5px rgba(0, 0, 0, 0.04);
+	border-color: rgba(124, 58, 237, 0.2);
+}
+.card:hover .card-icon {
+	transform: scale(1);
+	box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
+  cursor: pointer;
 }
 </style>

@@ -1,8 +1,8 @@
 <script setup>
 import gsap from 'gsap-trial'
 import { ScrollSmoother } from 'gsap-trial/ScrollSmoother'
+import ScrollToPlugin from 'gsap-trial/ScrollToPlugin'
 import { ScrollTrigger } from 'gsap-trial/ScrollTrigger'
-import ScrollToPlugin from 'gsap-trial/ScrollToPlugin';
 import { onMounted, onUnmounted, watch } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 
@@ -60,6 +60,14 @@ onUnmounted(() => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
 
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+
 .header {
 	width: 100%;
 	height: 80px;
@@ -73,7 +81,6 @@ onUnmounted(() => {
 	z-index: 10;
 	background-color: rgba(0, 0, 0, 0.5);
 	align-items: center;
-	font-family: 'Poppins', sans-serif;
 }
 
 .header .brand {
@@ -98,10 +105,6 @@ nav a {
 }
 nav a:hover {
 	color: rgb(232, 162, 31);
-}
-
-* {
-	box-sizing: border-box;
 }
 
 main {
