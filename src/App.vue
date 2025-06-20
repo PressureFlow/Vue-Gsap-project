@@ -25,6 +25,7 @@ onMounted(() => {
 			smooth: 1,
 			effects: true,
 		})
+		
 	})
 })
 

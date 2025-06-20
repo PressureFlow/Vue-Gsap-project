@@ -32,6 +32,34 @@ onMounted(() => {
 				})
 			})
 		})
+		let effectElements = gsap.utils.toArray('[data-speed]')
+
+		effectElements.forEach((el, i) => {
+			let speed = parseFloat(el.getAttribute('data-speed'))
+			gsap.fromTo(
+				el,
+				{ y: 0 },
+				{
+					y: 0,
+					ease: 'none',
+					scrollTrigger: {
+						trigger: el,
+						start: 'top bottom',
+						end: 'bottom top',
+						scrub: true,
+						onRefresh: self => {
+							let start = Math.max(0, self.start),
+								// убедитесь, что нет отрицательных начальных значений (элементов, которые изначально находятся в области просмотра)
+								distance = self.end - start,
+								end = start + distance / speed
+							self.setPositions(start, end)
+							self.animation.vars.y = (end - start) * (1 - speed) // обновить значение y на анимации
+							self.animation.invalidate().progress(1).progress(self.progress) // принудительно сделать твин недействительным, чтобы принять новое значение
+						},
+					},
+				}
+			)
+		})
 	})
 })
 
@@ -42,10 +70,10 @@ onUnmounted(() => {
 
 <template>
 	<main>
-		<section class="about-section" data-speed="1" id="about">
+		<section class="about-section fader" data-speed=".9" id="about">
 			<div class="about-container">
-				<div class="about-info">
-					<h1 class="main-title">Predator</h1>
+				<div class="fader about-info" data-speed="1.1">
+					<h1 class="main-title fader">Predator</h1>
 					<h2>Predator: Высший уровень рыболовной охоты</h2>
 					<p>
 						Рыбалка – это больше, чем просто хобби. Это вызов, азарт, и
@@ -73,7 +101,16 @@ onUnmounted(() => {
 					</div>
 					<div class="card-price">
 						<h2>49$</h2>
-						<div class="card-icon">+</div>
+						<div class="card-icon">
+							<svg height="16" width="16" viewBox="0 0 24 24">
+								<path
+									stroke-width="2"
+									stroke="currentColor"
+									d="M4 12H20M12 4V20"
+									fill="currentColor"
+								></path>
+							</svg>
+						</div>
 					</div>
 				</div>
 
@@ -144,6 +181,7 @@ onUnmounted(() => {
 	height: 90vh;
 	display: flex;
 	align-items: center;
+	z-index: 1;
 }
 
 .about-info {
@@ -184,7 +222,9 @@ h1 {
 	padding: 15px;
 	background-color: #ff9100;
 	color: #ffffff;
+	transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .products-section {
 	height: 100vh;
 	background-color: #e8e8e8;
@@ -209,6 +249,7 @@ h1 {
 	opacity: 0;
 	width: 22%;
 	transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+	z-index: 11;
 }
 
 .card-price {
@@ -244,6 +285,22 @@ h1 {
 	transform: scale(0.9);
 	transition: all 0.3s ease;
 }
+.card:hover .card-icon svg {
+	animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.2);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
 .card-info h2 {
 	font-size: 2em;
 }
@@ -260,6 +317,6 @@ h1 {
 .card:hover .card-icon {
 	transform: scale(1);
 	box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
-  cursor: pointer;
+	cursor: pointer;
 }
 </style>
